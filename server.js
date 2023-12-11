@@ -1,25 +1,33 @@
 const express = require('express');
-const app = express();
+const api = express();
 const path = require('path');
-//const data = require('./paintings.json');
-
-app.use('/static', express.static(path.join(__dirname,'static')));
 
 // Router require + calls
 const router = require('./scripts/handlers.js');
-router.handleAll(app);
-router.handleById(app);
-router.handleByGallery(app);
-router.handleByArtist(app);
+
+router.allPaintings(api);
+router.allArtists(api);
+router.allGalleries(api);
+
+router.paintingId(api);
+router.paintingGalleryId(api);
+router.paintingArtistId(api);
+router.paintingTitleText(api);
+router.paintingColor(api);
+
+router.artistCountry(api);
+router.galleryCountry(api);
+router.paintingArtistYearOfWork(api);
 
 let port = 8080;
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-  console.log(`http://localhost:${port}/static/tester.html`);
+api.listen(port, () => {
+  console.log(`http://localhost:${port}/api/painting/color/NAPA`);
+  console.log(`http://localhost:${port}/api/painting/color/coffee%20bean`);
+  console.log(`http://localhost:${port}/api/painting/kcvhvxchbkcj`);
 });
 
 /*
-  /api/paintings
+  /api/painting
   /api/painting/433
   /api/painting/43374534856
   /api/painting/gallery/7
@@ -34,7 +42,8 @@ app.listen(port, () => {
   /api/painting/color/coffee%20bean
   /api/painting/color/kcvhvxchbkcj
   /api/artists /api/artists/Netherlands
-  /api/artists/sdfjjsdf /api/galleries
+  /api/artists/sdfjjsdf 
+  /api/galleries
   /api/galleries/france
   /api/galleries/kcvhvxchbkcj 
 */
